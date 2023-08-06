@@ -1,0 +1,33 @@
+<head>
+	<title>Discusiones Utsjr</title>
+	<link rel="stylesheet" type="text/css" href="../web/css/stylesforum.css" />
+</head>
+<body>
+	<!-- NAVBAR -->
+	<!-- ... (código de la navbar) ... -->
+
+	<br />
+	<br />
+	<br />	<br />
+	<br />
+
+	<main>
+		<div id="discussions">
+			<h2 style="color: rgb(0, 0, 0)">Discusiones Recientes</h2>
+			<ul id="discussion-list">
+				<% posts.map((post) => { %>
+				<li>
+					 <%= post.id_po %> <br />
+					<center>
+						<strong> TITLE: <%= post.title %> <br /> </strong>
+					</center>
+					CONTENT: <%= post.content %> <br />
+					RATING: <%= "⭐".repeat(post.rating) %> <br />
+					Created At: <%= post.createdAt %> <br />
+					Updated At: <%= post.updatedAt %>
+				</li>
+				<% }) %>
+			</ul>
+		</div>
+	</main>
+</body>

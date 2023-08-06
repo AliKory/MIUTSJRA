@@ -1,0 +1,122 @@
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MIUTSJR</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="web/css/styleshome.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="#!"><img src="web/assets/loguito.png" width="150px" height="90px" class="d-inline-block align-top" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://localhost:3000/foro">Foro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Mis clases</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Servicios</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content-->
+    <div class="container px-4 px-lg-5">
+        <!-- Heading Row-->
+        <div class="row gx-4 gx-lg-5 align-items-center my-5">
+            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="web/assets/UT3.jpeg" alt="..." /></div>
+            <div class="col-lg-5">
+                <h1 class="font-weight-light">MI UTSJR</h1>
+                <p>Bienvenido, <%= usuario %></p>
+                <p>¡Bienvenidos a nuestra universidad! Somos la mejor opción para los mejores alumnos. Aquí encontrarás anuncios, horarios, un foro y un chat con tutores. ¡Explora tu futuro con nosotros!</p>
+              <!-- ... (rest of your login page content) ... -->
+                <a class="btn btn-primary" href="http://200.188.14.58/moodle/login/index.php">Ir a moodle</a>
+            </div>
+        </div>
+        <!-- MATERIAS-->
+        <h2 class="card-title"><span style="text-align: center;">Mis próximas clases</span></h2>
+        <br>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-4 mb-5 justify-content-start">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="card-title">Taller</h2>
+                  <p>
+                    <span class="subject">Nombre del profesor</span><br>
+                    <span class="subject">Nombre del Taller</span><br>
+                    Edificio <span class="building">Nombre del Edificio</span><br>
+                    Salón <span class="room">Número del Salón</span><br>
+                    <i class="bi bi-clock"><span class="time"><i class="far fa-clock"></i> En proceso</span></i>
+                  </p>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-5 justify-content-end">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h2 class="card-title">Clases</h2>
+                  <p>
+                    <span class="subject">Nombre del Taller</span><br>
+                    Edificio: <span class="building">Nombre del Edificio</span><br>
+                    Salón: <span class="room">Número del Salón</span><br>
+                    <i class="bi bi-clock"><span class="time"><i class="far fa-clock"></i> 9:00 AM</span></i>
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <% if (esAdministrativo) { %>
+                     <!-- Aquí van los botones exclusivos para administrativos -->
+                     <!-- Formulario para editar el mensaje -->
+              <form action="/editar-mensaje" method="POST">
+                 <div class="form-group">
+        <textarea class="form-control" id="mensaje" name="mensaje" rows="3"><%= mensajeGrupo ? mensajeGrupo.mensaje : "" %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Mensaje</button>
+              </form>
+                 <% } %>
+                 </div>
+                  <!-- Mostrar el mensaje solo si existe -->
+                  <% if (!esAdministrativo) { %>
+                  <% if (mensajeGrupo) { %>
+                    <div class="card-footer">
+                    <p> <%= mensajeGrupo.mensaje %></p>
+                  <% } else { %>
+                    <p>No hay mensajes en este momento.</p>
+                  <% } %>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+                  <!-- SECCIONES-->
+    <section class="py-5 border-bottom" id="features">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;"><i class="bi bi-calendar2"  style="font-size: 60px;"></i></div>
+                    <h2 class="h4 fw-bolder">Calendario</h2>
+                    <a class="btn btn-primary" href="">Ver calendario</a>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;"><i class="bi bi-calendar4-week"  style="font-size: 60px;"></i></div>
+                    <h2 class="h4 fw-bolder">Horarios</h2>
+                    <a class="btn btn-primary" href="">Ver Horario</a>
+                </div>
+                <div class="col-lg-4">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;"><i class="bi bi-chat-dots-fill"  style="font-size: 60px;" ></i></div>
+                    <h2 class="h4 fw-bolder">Chat con tutor</h2>
+                    <a class="btn btn-primary" href="http://localhost:3000/chat">Ir al chat</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script src="../scripts/inicio.js"></script>
+    <!-- Core theme JS-->
+
+

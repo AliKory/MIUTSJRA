@@ -1,0 +1,50 @@
+<head>
+    <title>Tutor de Clases Chat</title>
+    <link rel="stylesheet" type="text/css" href="web/css/styleschat.css">
+  </head>
+  <body>
+    
+    <div class="chat-container">
+      <div class="chat">
+        <div class="message received">
+          <p>Hola, ¿en qué puedo ayudarte?</p>
+        </div>
+        <div class="message sent">
+          <p>Necesito ayuda con la tarea de matemáticas.</p>
+        </div>
+        <!-- More messages would go here -->
+      </div>
+      <div class="input-container">
+        <form action="/enviar-mensaje" method="POST">
+          <input type="text" placeholder="Escribe tu mensaje..." name="mensaje" id="user-input">
+          <button type="submit" id="send-button">Enviar</button>
+        </form>
+      </div>      
+    </div>
+ 
+</body>    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const inputElement = document.querySelector(".input-container input");
+        const sendButton = document.querySelector(".input-container button");
+        const chatContainer = document.querySelector(".chat");
+    
+        sendButton.addEventListener("click", function () {
+          const userMessage = inputElement.value;
+          if (userMessage.trim() !== "") {
+            const newMessageDiv = document.createElement("div");
+            newMessageDiv.classList.add("message", "received");
+    
+            const newMessageParagraph = document.createElement("p");
+            newMessageParagraph.textContent = userMessage;
+    
+            newMessageDiv.appendChild(newMessageParagraph);
+            chatContainer.appendChild(newMessageDiv);
+        
+           // inputElement.value = ""; // Clear the input field after sending the message
+          }
+        });
+      });
+    </script>
+
+    

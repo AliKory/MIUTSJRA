@@ -1,0 +1,60 @@
+<title>Foro de Discusión Utsjr</title>
+  <link rel="stylesheet" type="text/css" href="../web/css/stylesforum.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar-dark fixed-top" style="background-color: #ffffff">
+  <nav class="navbar navbar-expand-md navbar-dark container" style="background-color: #ffffff;">
+    <a class="navbar-brand" href="#">
+      <img src="./logo2.jpeg" width="150px" height="90px" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <h2 style="color: rgb(0, 0, 0);">Foro de discusiones</h2>
+  </nav>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<main>
+  <div id="create-discussion" class="fo">
+   <form action="/newPost" method="POST">
+    <div class="image-container">
+      <img src="../web/assets/lobopregunta.png" width="150px" height="150px">
+    </div>
+      <div class="form__group field">
+        <input type="text" class="form__field" id="title" name="title" placeholder="Título de la Discusión">
+        <label for="name" class="form__label" id="title" name="title">Título</label>
+        <br>
+      </div>
+      <div class="fgroup">
+        <textarea class="ffield" id="content" name="content" placeholder="Contenido de la Discusión"></textarea>
+        <label for="contenido" class="flabel" id="content" name="content">Contenido de la Discusión</label>
+        <br>
+      </div>   
+      <div class="fgroup">
+      <label for="rating" class="flabel" id="rating" name="rating">Rating</label> 
+      <input type="text" class="form__field" id="rating" name="rating" placeholder="Rating">
+    </div>   
+    <br>
+      <center><button class="sub" type="submit">Crear Discusión</button> <button class="sub" type="submit">Ver Discusiones</button>
+   
+    </form>
+  </div>
+  
+  
+  
+
+  <!-- Botón para ver las discusiones en otra página -->
+
+</main>
+
+<script src="script.js"></script>
