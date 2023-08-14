@@ -62,10 +62,10 @@
                 <div class="card-body">
                   <h2 class="card-title">Clases</h2>
                   <p>
-                    <span class="subject">Nombre del Taller</span><br>
-                    Edificio: <span class="building">Nombre del Edificio</span><br>
-                    Salón: <span class="room">Número del Salón</span><br>
-                    <i class="bi bi-clock"><span class="time"><i class="far fa-clock"></i> 9:00 AM</span></i>
+                    <!-- BORRAR Y AGREGAR -->
+                    <span class="subject"><div id="horario"></div></span>
+                    <div div id="horaActual"></div><span class="time"><i class="far fa-clock"></i>
+                    </span>
                   </p>
                 </div>
                 <div class="card-footer">
@@ -109,7 +109,12 @@
                 <div class="col-lg-4">
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;"><i class="bi bi-chat-dots-fill"  style="font-size: 60px;" ></i></div>
                     <h2 class="h4 fw-bolder">Chat con tutor</h2>
-                    <a class="btn btn-primary" href="http://localhost:3000/chat">Ir al chat</a>
+                    <% if (!esAdministrativo) { %>
+                      <a class="btn btn-primary" href="http://localhost:3000/chat">Ir al chat</a>
+                    <% } %>
+                    <% if (esAdministrativo) { %>
+                    <a class="btn btn-primary" href="http://localhost:3000/chattutor">Ir al chat</a>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -118,5 +123,74 @@
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     <script src="../scripts/inicio.js"></script>
     <!-- Core theme JS-->
+    <!-- AGREGAR SCRIPT -->
+    <script>
+      const daysOfWeek = ["lunes", "martes", "miércoles", "jueves", "viernes"];
+      const classSchedule = {
+        lunes: ["Tutorias", "Integradora", "Integradora", "Ingles", "Ingles", "Probabilidad y estadística", "Probabilidad y estadística", "Formación Sociocultural"],
+           martes: ["Aplicaciones Web", "Aplicaciones Web", "Tutorias", "Probabilidad y estadística", "Probabilidad y estadística", "Bases de datos para aplicaciones", "Bases de datos para aplicaciones", "Sistemas Operativos"],
+           miércoles: ["Sistemas Operativos", "Sistemas Operativos", "Bases de datos para aplicaciones", "Ingles", "Ingles", "Tutorias", "Cálculo diferencial", "Cálculo diferencial"],
+           jueves: ["Aplicaciones Web", "Aplicaciones Web", "Tutorias", "Probabilidad y estadística", "Bases de datos para aplicaciones", "Bases de datos para aplicaciones", "Cálculo diferencial", "Cálculo diferencial"],
+           viernes: ["Sistemas Operativos", "Sistemas Operativos", "Aplicaciones Web", "Aplicaciones Web", "Ingles", "Bases de datos para aplicaciones", "Bases de datos para aplicaciones", "Formación Sociocultural"],
+      };
+      
+        const classLocations = {
+        "Tutorias": { edificio: "Edificio D Planta Baja", aula: "AULA 1" },
+        "Integradora": { edificio: "Edificio D Planta Baja", aula: "AULA 1" },
+        "Ingles": { edificio: "Edificio J Planta Alta", aula: "AULA #" },
+        "Probabilidad y estadística": { edificio: "Edificio D Planta Baja", aula: "AULA 1" },
+        "Formación Sociocultural": { edificio: "Edificio D Planta Baja", aula: "AULA 1" },
+        "Sistemas Operativos": { edificio: "Edificio F Planta Baja", aula: "Laboratorio 3" },
+        "Aplicaciones Web": { edificio: "Edificio F Planta Baja", aula: "Laboratorio 1" },
+        "Bases de datos para aplicaciones": { edificio: "Edificio F Planta Baja", aula: "Laboratorio 3" },
+        "Cálculo diferencial": { edificio: "Edificio D Planta Baja", aula: "AULA 1" },
+        
+      };
+      
+      const currentDay = new Date().getDay();
+      const currentHour = new Date().getHours() - 8; // Ajustar según la hora de inicio del horario
+      
+      const horarioContainer = document.getElementById("horario");
+      const currentDaySchedule = classSchedule[daysOfWeek[currentDay - 1]];
+      
+      if (currentDaySchedule) {
+        const currentClass = currentDaySchedule[currentHour];
+        if (currentClass) {
+          const classLocation = classLocations[currentClass];
+          if (classLocation) {
+            horarioContainer.innerHTML = `Clase: ${currentClass}<br>Edificio: ${classLocation.edificio}<br>Aula: ${classLocation.aula}.`;
+          } else {
+            horarioContainer.textContent = `No se encontró información de ubicación para ${currentClass}.`;
+          }
+        } else {
+          horarioContainer.textContent = "No hay clases en este momento.";
+        }
+      } else {
+        horarioContainer.textContent = "Hoy no hay clases.";
+      }
+      
+      // HORA
+      // Función para formatear números con ceros a la izquierda si son menores a 10
+      function formatNumberWithLeadingZero(number) {
+        return number < 10 ? `0${number}` : `${number}`;
+      }
+      
+      // Función para actualizar la hora en el div
+      function actualizarHora() {
+        const now = new Date();
+        const hours = formatNumberWithLeadingZero(now.getHours());
+        const minutes = formatNumberWithLeadingZero(now.getMinutes());
+        const seconds = formatNumberWithLeadingZero(now.getSeconds());
+      
+        const horaActualDiv = document.getElementById("horaActual");
+        horaActualDiv.innerHTML = `<i class="bi bi-clock"></i> ${hours}:${minutes}:${seconds}`;
+      
+        // Actualiza la hora cada segundo
+        setTimeout(actualizarHora, 1000);
+      }
+      
+      // Iniciar la actualización de la hora
+      actualizarHora();
+           </script>
 
 

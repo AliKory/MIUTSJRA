@@ -17,17 +17,22 @@
 			<ul id="discussion-list">
 				<% posts.map((post) => { %>
 				<li>
-					 <%= post.id_po %> <br />
+					<%= post.id_po %> <br />
 					<center>
-						<strong> TITLE: <%= post.title %> <br /> </strong>
+					<strong> TITLE: <%= post.title %> <br /> </strong>
 					</center>
 					CONTENT: <%= post.content %> <br />
 					RATING: <%= "⭐".repeat(post.rating) %> <br />
 					Created At: <%= post.createdAt %> <br />
 					Updated At: <%= post.updatedAt %>
+					<% if (esAdministrativo) { %>
+						<form action="/eliminar-discusion/<%= post.id_po %>" method="POST">
+						  <button type="submit" class="eliminar-btn">Eliminar</button>
+						</form>
+					  <% } %>
 				</li>
 				<% }) %>
 			</ul>
-		</div>
+			</div>
 	</main>
 </body>

@@ -5,6 +5,7 @@ const Usuario = require("../modelos/usuarioModel");
 const Administrativo = require("../modelos/administrativoModel");
 const MensajesGrupo = require("../modelos/messageModel");
 const Mensaje = require("../modelos/chatModel");
+// const MensajeT = require("../modelos/chattutorModel");
 const Post = require("../modelos/postsModel");
 
 // Renderizar login
@@ -13,7 +14,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/foro", (req, res) => {
-	res.render("foro");
+    const esAdministrativo = req.session.usuario && req.session.usuario.expediente.startsWith("11");
+    res.render("foro", { esAdministrativo });
 });
 
 router.get("/error", (req, res) => {
@@ -29,6 +31,9 @@ router.get("/chat", (req, res) => {
 	res.render("chat");
 });
 
+router.get("/chattutor", (req, res) => {
+	res.render("chattutor");
+});
 // Renderizar inicio
 
 router.get("/inicio", async (req, res) => {
@@ -221,6 +226,7 @@ router.post("/enviar-mensaje", async (req, res) => {
 	}
 });
 
+
 router.post("/newPost", async (req, res) => {
 	try {
 		// Destructurar req.body y obtener title, y content
@@ -245,13 +251,34 @@ router.get("/discussions", async (req, res) => {
 		// Obtener todos los posts de la base de datos
 		const posts = await Post.findAll();
 
+		// Lógica para verificar si el usuario es administrador
+		const esAdministrativo = req.session.usuario && req.session.usuario.expediente.startsWith("11")
+
 		// Renderizar la vista "discussions" y enviar los posts al template
 		console.log(posts);
-		res.render("discussions", { posts });
+		res.render("discussions", { posts , esAdministrativo });
 	} catch (error) {
 		console.error("Error al obtener los posts:", error);
 		res.redirect("/error");
 	}
+});
+
+router.post("/eliminar-discusion/:id", async (req, res) => {
+    // Obtener el ID de la discusión de los parámetros de la URL
+    const idDiscusion = req.params.id;
+
+    try {
+        // Realizar la lógica de eliminación de la discusión utilizando el ID
+        await Post.destroy({
+            where: { id_po: idDiscusion }
+        });
+
+        // Redireccionar a la página de discusiones después de eliminar
+        res.redirect("/discussions");
+    } catch (error) {
+        console.error("Error al eliminar la discusión:", error);
+        res.redirect("/error");
+    }
 });
 
 module.exports = router;

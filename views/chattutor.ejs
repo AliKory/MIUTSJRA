@@ -1,0 +1,61 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con Base de Datos</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    
+<div class="chat-container">
+    <div class="chat" id="chat-box">
+        <!-- Messages will be displayed here -->
+    </div>
+    <div class="input-container">
+        <input type="text" placeholder="Escribe tu mensaje..." id="user-input">
+        <button id="send-button">Enviar</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
+    
+    // Simulated messages for testing
+    const messages = [
+        { sender: "Usuario", text: "¡Hola! ¿Cómo estás?" },
+        { sender: "Bot", text: "¡Hola! Soy el bot de chat." }
+    ];
+
+    // Function to display messages
+    function displayMessages() {
+        chatBox.innerHTML = "";
+        messages.forEach(message => {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+            messageDiv.innerHTML = `<strong>${message.sender}:</strong> ${message.text}`;
+            chatBox.appendChild(messageDiv);
+        });
+    }
+
+    // Display initial messages
+    displayMessages();
+
+    // Handle send button click
+    sendButton.addEventListener("click", function () {
+        const userMessage = userInput.value.trim();
+        if (userMessage !== "") {
+            messages.push({ sender: "Usuario", text: userMessage });
+            displayMessages();
+            userInput.value = "";
+        }
+    });
+});
+
+</script>
+
+
+
+    

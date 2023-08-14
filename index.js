@@ -2,7 +2,7 @@ const express = require("express");
 const routes = require("./rutas/routes"); 
 const path = require("path");
 const dotenv = require("dotenv");
-const session = require("cookie-session");
+const session = require("express-session");
 const forumRoutes = require('./rutas/forumRoutes');
 const app = express();
 app.use(express.json());
@@ -14,8 +14,9 @@ app.use("/js", express.static(path.join(__dirname, "/web/js")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
-  name: 'session',
-  keys:[ process.env.SECRETO_SESION]
+  secret:process.env.SECRETO_SESION,
+  resave: true,
+  saveUninitialized:true
 }));
 
 dotenv.config();

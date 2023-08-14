@@ -45,8 +45,12 @@
       <input type="text" class="form__field" id="rating" name="rating" placeholder="Rating">
     </div>   
     <br>
-      <center><button class="sub" type="submit">Crear Discusión</button> <button class="sub" type="submit">Ver Discusiones</button>
-   
+    <center>
+      <button class="sub" type="submit">Crear Discusión</button>
+      <% if (esAdministrativo) { %>
+          <a href="/discussions" class="sub">Ver Discusiones</a>
+      <% } %>
+  </center>
     </form>
   </div>
   
